@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CovidController!{% endblock %}
+
+{% block body %}
+
+<section class="annonce">
+    {% for annonce in annonces %}
+    <annonce>
+        <h2>{{annonce.title}}</h2>
+        <h5>{{annonce.type}}</h5>
+        <div class="metadata">Ecrit le {{annonce.createdAt | date('d/m/Y')}} à {{annonce.createdAt | date('H:i')}} par xxxx dans la catégorie XXXX</div>
+        <div class="content">
+            <img src="{{annonce.image}}" alt="">
+            {{annonce.content | raw}}
+            <a href=" {{path('covid_show',{'id':annonce.id})}}" class="btn btn-primary">Lire la suite</a>
+        </div>
+    </annonce>
+
+    {% endfor %}
+
+</section>
+
+{% endblock %}
+
+

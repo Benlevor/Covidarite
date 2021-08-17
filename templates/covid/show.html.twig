@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <annonce>
+        <h2>{{annonce.title}}</h2>
+        <h5>{{annonce.type}}</h5>
+        <div class="metadata">Ecrit le {{annonce.createdAt | date('d/m/Y')}}  à {{annonce.createdAt | date('H:i')}} par xxxx dans la catégorie XXXX</div>
+        <div class="content">
+            <img src="{{annonce.image}}" alt="">
+            {{annonce.content | raw}}
+        </div>
+    </annonce>
+
+{% endblock %}
