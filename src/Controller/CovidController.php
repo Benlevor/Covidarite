@@ -33,6 +33,13 @@ class CovidController extends AbstractController
     }
 
     /**
+     * @Route("/covid/new", name="covid_create")
+     */
+    public function create() {
+        return $this->render('covid/create.html.twig');
+    }
+    
+    /**
      * @Route("/covid/{id}", name="covid_show")
      */
     public function show(Annonce $annonce){
@@ -41,4 +48,5 @@ class CovidController extends AbstractController
             'annonce'=> $annonce
         ]);
     }
+
 }
