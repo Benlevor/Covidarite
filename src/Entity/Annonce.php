@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\AnnonceRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=AnnonceRepository::class)
@@ -19,16 +20,19 @@ class Annonce
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=7,max=255)
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(min=20)
      */
     private $content;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * #Assert\Url()
      */
     private $image;
 

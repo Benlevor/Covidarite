@@ -7,9 +7,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Annonce;
 use App\Repository\AnnonceRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\Request;
 
 class CovidController extends AbstractController
 {
@@ -37,36 +39,38 @@ class CovidController extends AbstractController
 
     /**
      * @Route("/covid/new", name="covid_create")
+     * @Route("/covid/{id}/edit", name="covid_edit")
      */
-    public function create() {
-        $annonce= new Annonce();
+    public function form(Annonce $annonce= null, Request $request, EntityManagerInterface $manager) {
+
+        if(!$annonce){
+            $annonce= new Annonce();
+        }
 
         $form= $this->createFormBuilder($annonce)
-                    ->add('title', TextType::class,[
-                        'attr'=>[
-                            'placeholder'=> "Titre de l'annonce",
-                        ]
-                    ])
-                    ->add('content',TextareaType::class,[
-                        'attr'=>[
-                            'placeholder'=>"Veuillez saisir le contenu de votre annonce"
-                        ]
-                    ])
-                    ->add('image',TextType::class,[
-                        'attr'=>[
-                            'placeholder'=> "URL de l'image"
-                        ]
-                    ])
-
-                    ->add('type',TextType::class,[
-                        'attr'=>[
-                            'placeholder'=> "Type d'utilisateur"
-                        ]
-                    ])
+                    ->add('title')
+                    ->add('content')
+                    ->add('image')
+                    ->add('type')
                     ->getForm();
 
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            if(!$annonce->getID()){
+                $annonce->setCreatedAt(new \DateTimeImmutable());
+            }
+
+            $manager->persist($annonce);
+            $manager->flush();
+
+            return $this->redirectToRoute('covid_show',['id'=>$annonce->getID()]);
+
+        }
+
         return $this->render('covid/create.html.twig', [
-            'formAnnonce'=> $form->createView()
+            'formAnnonce'=> $form->createView(),
+            'editMode'=>$annonce ->getID() !== null
         ]);
     }
 

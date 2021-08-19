@@ -6,12 +6,29 @@
 <h1> Création d'une nouvelle annonce </h1>
 
     {{form_start(formAnnonce)}}
-
-    {{form_widget(formAnnonce)}}
+{#accolade au lieu de crochet pour liste car Twig#}
+    {{form_row(formAnnonce.title, {'attr':
+    {'placeholder':"Titre de l'annonce"} 
+    })}} 
+    {{form_row(formAnnonce.type, {'attr':
+    {'placeholder':"Type d'utilisateur"}
+    })}}
+    {{form_row(formAnnonce.content, {'attr':
+    {'placeholder':"Veuillez entrer le contenu de votre annonce"}
+    })}}
+    {{form_row(formAnnonce.image,{'attr':
+    {'placeholder':"URL de l'image"}
+    })}}
 
     <br> </br>
 
-    <button type="submit" class="btn btn-success">Ajouter une annonce</button>
+    <button type="submit" class="btn btn-success">
+    {% if editMode %}
+    Enregister les modifications de l'annonce
+    {% else %}
+    Ajouter une annonce
+    {% endif %}
+    </button>
 
     {{form_end(formAnnonce)}}
 
