@@ -3,22 +3,48 @@
 
 {% block body %}
 
-<h1> Création d'une nouvelle annonce </h1>
+{% if editMode %}
+    <h1> Création d'une nouvelle annonce </h1>
+
+{% else %}
+    <h1> Création d'une nouvelle annonce </h1>
+{% endif %}
+
 
     {{form_start(formAnnonce)}}
 {#accolade au lieu de crochet pour liste car Twig#}
-    {{form_row(formAnnonce.title, {'attr':
+    <br> </br>
+    {{form_row(formAnnonce.title, {'label':'Titre*','attr':
     {'placeholder':"Titre de l'annonce"} 
-    })}} 
-    {{form_row(formAnnonce.type, {'attr':
+    })}}
+    <br> </br>
+    {{form_row(formAnnonce.category, {'label':"Catégorie de l\'annonce*",'attr':
     {'placeholder':"Type d'utilisateur"}
+    })}} 
+    <br> </br>
+    {{form_row(formAnnonce.nomComplet, {'label':'Nom et Prénom*','attr':
+    {'placeholder':"Exemple: Jean Dupont"} 
+    })}} 
+    <br> </br>
+    {{form_row(formAnnonce.phoneNumber, {'label':'Numéro de téléphone','attr':
+    {'placeholder':"Exemple: 0487019420"} 
     })}}
-    {{form_row(formAnnonce.content, {'attr':
-    {'placeholder':"Veuillez entrer le contenu de votre annonce"}
+    <br> </br>
+    {{form_row(formAnnonce.email, {'label':'Adresse e-mail','attr':
+    {'placeholder':"Exemple 20317@ecam.be"} 
+    })}} 
+    <br> </br>
+    {{form_row(formAnnonce.content, {'label':'Contenu','attr':
+    {'placeholder':"Veuillez expliquer l'objectif de votre annonce"}
     })}}
-    {{form_row(formAnnonce.image,{'attr':
+    <br> </br>
+    {{form_row(formAnnonce.image,{'label':'Photo de profil','attr':
     {'placeholder':"URL de l'image"}
     })}}
+    <br> </br>
+    {{form_row(formAnnonce.zipcode, {'label':'Code Postal','attr':
+    {'placeholder':"Veuillez entrer votre code postal"} 
+    })}} 
     
 
     <br> </br>

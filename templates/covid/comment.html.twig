@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{% form_theme formComment 'bootstrap_4_layout.html.twig'%}
+
+{% block body %}
+
+<h1> Création d'un nouveau commentaire </h1>
+
+
+
+    {{form_start(formComment)}}
+
+        <br> </br>
+        {{form_row(formComment.author, {'label':'Pseudonyme','attr':
+        {'placeholder':"Exemple: Jean Dupont"} 
+        })}} 
+        <br> </br>
+        {{form_row(formComment.content, {'label':'Commentaire','attr':
+        {'placeholder':"Laissez votre commentaire"}
+        })}}
+        <br> </br>
+
+        <button type="submit" class="btn btn-success">
+            Commentez !
+        </button>
+
+    {{form_end(formComment)}}
+
+
+
+{% endblock %}

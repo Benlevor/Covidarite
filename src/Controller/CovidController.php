@@ -12,6 +12,10 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
+use App\Form\AnnonceType;
+use App\Entity\Category;
+use App\Entity\Comment;
+use App\Form\CommentType;
 
 class CovidController extends AbstractController
 {
@@ -46,13 +50,7 @@ class CovidController extends AbstractController
         if(!$annonce){
             $annonce= new Annonce();
         }
-
-        $form= $this->createFormBuilder($annonce)
-                    ->add('title')
-                    ->add('content')
-                    ->add('image')
-                    ->add('type')
-                    ->getForm();
+        $form = $this->createForm(AnnonceType::class, $annonce);
 
         $form->handleRequest($request);
 
@@ -64,7 +62,7 @@ class CovidController extends AbstractController
             $manager->persist($annonce);
             $manager->flush();
 
-            return $this->redirectToRoute('covid_show',['id'=>$annonce->getID()]);
+            return $this->redirectToRoute('covid_show',['id'=>$annonce->getId()]);
 
         }
 
@@ -84,4 +82,34 @@ class CovidController extends AbstractController
         ]);
     }
 
+    /**
+    * @Route("/covid/{id}/comment", name="create_comment")
+    */
+
+    public function comment($id ,Request $request, EntityManagerInterface $manager) {
+
+        $repo = $this ->getDoctrine() ->getRepository(Annonce::class);
+        $annonce = $repo ->find($id);
+
+        $comment = new Comment();
+
+        $form = $this->createForm(CommentType::class, $comment);
+
+        $form ->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $comment->setCreatedAt(new \DateTimeImmutable());
+            $comment->setAnnonce($annonce);
+
+            $manager->persist($comment);
+            $manager->flush();
+        return $this->redirectToRoute('recipe_show', ['id' => $annonce->getId()]);
+        }
+        return $this ->render('covid/comment.html.twig',[
+            'formComment' => $form->createView(),
+      ]);
+    
+    }
+
 }
+

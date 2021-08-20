@@ -11,6 +11,8 @@
         </div>
     </annonce>
 
+    <a href=" {{path('covid_create',{'id':annonce.id})}}" class="btn btn-primary">Laisser un commentaire</a>
+
     <section id="commentaires">
         {% for comment in annonce.comments %}
             <div class="comment">
