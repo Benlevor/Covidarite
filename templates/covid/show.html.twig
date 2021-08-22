@@ -3,8 +3,12 @@
 {% block body %}
     <annonce>
         <h2>{{annonce.title}}</h2>
-        <div class="metadata">
-            Ecrit le {{annonce.createdAt | date('d/m/Y')}}  à {{annonce.createdAt | date('H:i')}} par {{annonce.nomComplet | raw}}
+        <div class="column">
+        <a href=" {{path('covid_edit',{'id':annonce.id})}}" class="btn btn-primary">Modifier l'annonce</a>
+            <div class="metadata">
+                Ecrit le {{annonce.createdAt | date('d/m/Y')}}  à {{annonce.createdAt | date('H:i')}} par {{annonce.nomComplet | raw}}
+            </div>
+
         </div>
         <div class="content">       
             <img src="{{annonce.image}}" width="350" length="200" alt=""> <br> </br> 
