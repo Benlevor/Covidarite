@@ -43,10 +43,6 @@ class Annonce
      */
     private $createdAt;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $Type;
 
     /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="annonces")
@@ -138,18 +134,6 @@ class Annonce
         return $this;
     }
 
-    public function getType(): ?string
-    {
-        return $this->Type;
-    }
-
-    public function setType(string $Type): self
-    {
-        $this->Type = $Type;
-
-        return $this;
-    }
-
     public function getCategory(): ?Category
     {
         return $this->category;
@@ -197,12 +181,19 @@ class Annonce
         return $this->nomComplet;
     }
 
+    public function __toString()
+    {
+        return (string) $this->getNomComplet();
+        
+    }
+
     public function setNomComplet(string $nomComplet): self
     {
         $this->nomComplet = $nomComplet;
 
         return $this;
     }
+   
 
     public function getPhoneNumber(): ?string
     {

@@ -73,6 +73,37 @@ class CovidController extends AbstractController
     }
 
     /**
+     * @Route("/covid/newhelp", name="covid_createh")
+     * @Route("/covid/{id}/edit", name="covid_edit")
+     */
+    public function formh(Annonce $annonce= null, Request $request, EntityManagerInterface $manager) {
+
+        if(!$annonce){
+            $annonce= new Annonce();
+        }
+        $form = $this->createForm(AnnonceType::class, $annonce);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            if(!$annonce->getID()){
+                $annonce->setCreatedAt(new \DateTimeImmutable());
+            }
+
+            $manager->persist($annonce);
+            $manager->flush();
+
+            return $this->redirectToRoute('covid_show',['id'=>$annonce->getId()]);
+
+        }
+
+        return $this->render('covid/createh.html.twig', [
+            'formAnnonce'=> $form->createView(),
+            'editMode'=>$annonce ->getID() !== null
+        ]);
+    }
+
+    /**
      * @Route("/covid/{id}", name="covid_show")
      */
     public function show(Annonce $annonce){
@@ -103,7 +134,7 @@ class CovidController extends AbstractController
 
             $manager->persist($comment);
             $manager->flush();
-        return $this->redirectToRoute('recipe_show', ['id' => $annonce->getId()]);
+        return $this->redirectToRoute('covid_show', ['id' => $annonce->getId()]);
         }
         return $this ->render('covid/comment.html.twig',[
             'formComment' => $form->createView(),

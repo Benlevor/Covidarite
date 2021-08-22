@@ -3,15 +3,40 @@
 {% block body %}
     <annonce>
         <h2>{{annonce.title}}</h2>
-        <h5>{{annonce.type}}</h5>
-        <div class="metadata">Ecrit le {{annonce.createdAt | date('d/m/Y')}}  à {{annonce.createdAt | date('H:i')}} par xxxx dans la catégorie XXXX</div>
-        <div class="content">
-            <img src="{{annonce.image}}" alt="">
-            {{annonce.content | raw}}
+        <div class="metadata">
+            Ecrit le {{annonce.createdAt | date('d/m/Y')}}  à {{annonce.createdAt | date('H:i')}} par {{annonce.nomComplet | raw}}
         </div>
+        <div class="content">       
+            <img src="{{annonce.image}}" width="350" length="200" alt=""> <br> </br> 
+        </div>
+
+         <div style="text-align: justify;">   
+            {{annonce.content | raw}} 
+         </div>
+
     </annonce>
 
-    <a href=" {{path('covid_create',{'id':annonce.id})}}" class="btn btn-primary">Laisser un commentaire</a>
+    <br> </br>
+
+        <h4> 
+            Information personelle 
+        </h4>
+        <ul>
+            <li> Nom complet : {{annonce.nomComplet}} </li>
+            <br> </br>
+
+            <li> Numéro de téléphone: {{annonce.phoneNumber}} </li>
+            <br> </br>
+
+            <li> Email: {{annonce.email}} </li>
+            <br> </br>
+
+            <li> Code postal: {{annonce.zipcode}} </li>
+
+            <br> </br>
+    <a href=" {{path('create_comment',{'id':annonce.id})}}" class="btn btn-primary">Laisser un commentaire</a>
+
+    <br> </br>
 
     <section id="commentaires">
         {% for comment in annonce.comments %}

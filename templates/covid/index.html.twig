@@ -7,13 +7,38 @@
 <section class="annonce">
     {% for annonce in annonces %}
     <annonce>
-        <h2>{{annonce.title}}</h2>
-        <h5>{{annonce.type}}</h5>
-        <div class="metadata">Ecrit le {{annonce.createdAt | date('d/m/Y')}} à {{annonce.createdAt | date('H:i')}} par xxxx dans la catégorie XXXX</div>
+        <div class="row">
+		    <div class="column">
+                <h2>{{annonce.title}}</h2>
+            </div>
+        </div>
+        <div class="metadata">Ecrit le {{annonce.createdAt | date('d/m/Y')}} à {{annonce.createdAt | date('H:i')}} par {{annonce.nomComplet | raw}}</div>
         <div class="content">
-            <img src="{{annonce.image}}" alt="">
-            {{annonce.content | raw}}
-            <a href=" {{path('covid_show',{'id':annonce.id})}}" class="btn btn-primary">Lire la suite</a>
+         <img src="{{annonce.image}}" width="350" length="200" alt="">  <br> </br></div>
+
+		    <h4>Description de l'annonce</h4>
+		<div style="text-align: justify;">
+            {{annonce.content | raw}} 
+        </div>
+            <br> </br>
+            <h4> Information personelle </h4>
+            <ul>
+            <li> Nom complet : {{annonce.nomComplet}} </li>
+            <br> </br>
+            <li> Numéro de téléphone: {{annonce.phoneNumber}} </li>
+            <br> </br>
+            <li> Email: {{annonce.email}} </li>
+            <br> </br>
+            <li> Code postal: {{annonce.zipcode}} </li>
+
+
+            <br> </br>
+
+
+            <div class="column">
+                <a href=" {{path('covid_show',{'id':annonce.id})}}" class="btn btn-primary">Lire la suite</a>
+                <a href=" {{path('create_comment',{'id':annonce.id})}}" class="btn btn-primary">Laisser un commentaire</a>
+            </div>
         </div>
     </annonce>
 
