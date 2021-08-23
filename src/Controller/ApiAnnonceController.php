@@ -17,6 +17,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
+use App\Repository\CategoryRepository;
+
 
 class ApiAnnonceController extends AbstractController
 {
@@ -66,11 +68,11 @@ class ApiAnnonceController extends AbstractController
 
             $catValue = $annonce->getCategory();
             $catTitle = $catValue->getTitle();
-            $category = $categoryRepository->findOneBy(['title' => $categoryTitle]);
+            $category = $categoryRepository->findOneBy(['title' => $catTitle]);
             // setCategory à la nouvelle recette créée
             $annonce->setCategory($category);
 
-            $em->persist($newRecipe);
+            $em->persist($annonce);
             $em->flush();
 
 
@@ -136,12 +138,12 @@ class ApiAnnonceController extends AbstractController
      * @Route("/api/annonce/{id}", name="api_annonce_edit", methods={"PUT","OPTIONS"})
      */
 
-    public function put($id, Request $request, CategoryRepository $categoryRepository, RecipeRepository $recipeRepository, SerializerInterface $serializer, ValidatorInterface $validator, EntityManagerInterface $em)
+    public function put($id, Request $request, CategoryRepository $categoryRepository, AnnonceRepository $annonceRepository, SerializerInterface $serializer, ValidatorInterface $validator, EntityManagerInterface $em)
     {
 
 
         $jsonReceived = $request->getContent();
-        $Modified = $recipeRepository->find($id);
+        $Modified = $annonceRepository->find($id);
 
         try {
             $deserializedReceived = $serializer->deserialize($jsonReceived, Annonce::class, 'json');
@@ -192,4 +194,6 @@ class ApiAnnonceController extends AbstractController
 
             return $response;
         }
+    }
+
 }
