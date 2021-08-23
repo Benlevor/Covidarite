@@ -142,5 +142,23 @@ class CovidController extends AbstractController
     
     }
 
+    /**
+     * @Route("annonces/{id}/delete", name="covid_delete")
+     */
+
+        public function delete($id, EntityManagerInterface $manager) {
+
+            $repo = $this ->getDoctrine() ->getRepository(Annonce::class);
+            $annonce = $repo ->find($id);
+  
+            $manager->remove($annonce);
+            $manager->flush();
+  
+            return $this ->render('covid/delete.html.twig', [
+              'annonce' => $annonce
+            ]);
+
+        }
+
 }
 

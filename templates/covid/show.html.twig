@@ -5,6 +5,7 @@
         <h2>{{annonce.title}}</h2>
         <div class="column">
         <a href=" {{path('covid_edit',{'id':annonce.id})}}" class="btn btn-primary">Modifier l'annonce</a>
+        <a href=" {{path('covid_delete',{'id':annonce.id})}}" class="btn btn-primary">Supprimer l'annonce</a>
             <div class="metadata">
                 Ecrit le {{annonce.createdAt | date('d/m/Y')}}  à {{annonce.createdAt | date('H:i')}} par {{annonce.nomComplet | raw}}
             </div>

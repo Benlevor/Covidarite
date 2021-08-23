@@ -20,23 +20,12 @@
 		<div style="text-align: justify;">
             {{annonce.content | raw}} 
         </div>
-            <br> </br>
-            <h4> Information personelle </h4>
-            <ul>
-            <li> Nom complet : {{annonce.nomComplet}} </li>
-            <br> </br>
-            <li> Numéro de téléphone: {{annonce.phoneNumber}} </li>
-            <br> </br>
-            <li> Email: {{annonce.email}} </li>
-            <br> </br>
-            <li> Code postal: {{annonce.zipcode}} </li>
-
 
             <br> </br>
 
 
             <div class="column">
-                <a href=" {{path('covid_show',{'id':annonce.id})}}" class="btn btn-primary">Voir l'annonce</a>
+                <a href=" {{path('covid_show',{'id':annonce.id})}}" class="btn btn-primary">Voir le détail de l'annonce</a>
                 <a href=" {{path('create_comment',{'id':annonce.id})}}" class="btn btn-primary">Laisser un commentaire</a>
             </div>
         </div>
