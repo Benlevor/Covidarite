@@ -16,6 +16,7 @@ use App\Form\AnnonceType;
 use App\Entity\Category;
 use App\Entity\Comment;
 use App\Form\CommentType;
+use App\Form\SearchType;
 
 class CovidController extends AbstractController
 {
@@ -159,6 +160,32 @@ class CovidController extends AbstractController
             ]);
 
         }
+
+    /**
+    * @Route("/search",name="search")
+    */
+
+        public function search(Request $request) {
+
+            $repo = $this ->getDoctrine()->getRepository(Annonce::class);
+            $annonces = $repo -> findAll();
+            $form = $this->createForm(SearchType::class);
+    
+            $form ->handleRequest($request);
+    
+            if($form->isSubmitted() && $form->isValid()) {
+    
+              return $this->render('covid/search.html.twig', [
+                'annonceResearch' => $request->request->get('search'), 
+                'annonces' => $annonces
+                ]);
+    
+            }
+    
+          return $this ->render('covid/search_form.html.twig',[
+              'formResearch' => $form->createView()
+        ]);
+           }
 
 }
 

@@ -27,8 +27,7 @@
                 <div class="collapse navbar-collapse" id="navbarColor01">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link active" href="{{path('home')}}">Page d'accueil
-                            <span class="visually-hidden">(current)</span>
+                            <a class="nav-link" href="{{path('home')}}">Page d'accueil
                             </a>
                         </li>
                         <li class="nav-item">
@@ -39,12 +38,11 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{path('covid_createh')}}">Demander de l'aide</a>
-                        </li>                       
+                        </li> 
+ 					    <li class="nav-item">
+						    <a class="nav-link" href="{{ path('search') }}">Recherchez une annonce</a>
+					    </li>                                             
                     </ul>
-                    <form class="d-flex">
-                        <input class="form-control me-sm-2" type="text" placeholder="Search">
-                        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-                    </form>
                 </div>
             </div>
         </nav>

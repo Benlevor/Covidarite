@@ -4,17 +4,20 @@
 
 {% block body %}
 
-<section class="annonce">
     {% for annonce in annonces %}
+<section class="annonce">
+<div class="text-center">
     <annonce>
         <div class="row">
 		    <div class="column">
                 <h2>{{annonce.title}}</h2>
             </div>
         </div>
-        <div class="metadata">Ecrit le {{annonce.createdAt | date('d/m/Y')}} à {{annonce.createdAt | date('H:i')}} par {{annonce.nomComplet | raw}}</div>
+            <div class="metadata">Ecrit le {{annonce.createdAt | date('d/m/Y')}} à {{annonce.createdAt | date('H:i')}} par {{annonce.nomComplet | raw}}</div>
         <div class="content">
-         <img src="{{annonce.image}}" width="350" length="200" alt="">  <br> </br></div>
+         <img src="{{annonce.image}}" width="350" length="200" alt="">  
+         <br> </br>
+         </div>
 
 		    <h4>Description de l'annonce</h4>
 		<div style="text-align: justify;">
@@ -29,11 +32,13 @@
                 <a href=" {{path('create_comment',{'id':annonce.id})}}" class="btn btn-primary">Laisser un commentaire</a>
             </div>
         </div>
+
+    <br> </br>
     </annonce>
+    </div>
+    </section>
 
-    {% endfor %}
-
-</section>
+{% endfor %}
 
 {% endblock %}
 

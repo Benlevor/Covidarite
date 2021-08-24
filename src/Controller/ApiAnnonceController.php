@@ -25,7 +25,7 @@ class ApiAnnonceController extends AbstractController
     /**
      * @Route("/api/annonce", name="api_annonce_index", methods={"GET","OPTIONS"})
      */
-    public function index(AnnonceRepository $annonceRepository): Response
+    public function index(): Response
     {
         $response = new JsonResponse();
         $response->headers->set('Content-Type', 'application/json');

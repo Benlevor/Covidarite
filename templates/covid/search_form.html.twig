@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme formResearch 'bootstrap_4_layout.html.twig' %}
+
+
+{% block body %}
+	<br>
+	<div>
+		<h3>Recherche d'une annonce
+		</h3>
+	</div>
+	<br>
+
+    {{ form_start(formResearch)}}
+    {{ form_row(formResearch.title, {'label':'Titre de l\'annonce'})}}
+    <br> </br>
+    <br> </br>
+    {{ form_row(formResearch.save, {'label': 'Rechercher'}) }}
+    {{ form_end(formResearch) }}
+{% endblock %}

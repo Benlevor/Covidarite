@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Voici le résultat de votre recherche
+{% endblock %}
+
+{% set counter = 0 %}
+
+
+{% block body %}
+{% for annonce in annonces %}
+    {% if annonceResearch.title|lower in annonce.title|lower %}
+    {% set counter = counter + 1 %}
+    {% endif %}
+{% endfor %}
+
+    {% if counter > 1 %}
+    <br>
+        <h3>{{ counter }} résultats pour "{{ recipeResearch.title }}"</h3>
+        <br>
+        <a href="{{ path('search') }}" class="btn btn-primary">Relancer une recherche</a>
+    <br>
+    {% elseif counter == 1 %}
+        <br>
+        <h4>{{ counter }} résultat pour "{{ recipeResearch.title }}"</h4>
+        <br>
+        <a href="{{ path('search') }}" class="btn btn-primary">Relancer une recherche</a>
+    <br>
+    {% else %}
+    <br>
+        <h4>{{ counter }} résultat pour "{{ recipeResearch.title }}"</h4>
+        <br>
+        <p>Pas de résultat pour votre recherche</p>
+        <br>
+        <a href="{{ path('search') }}" class="btn btn-primary">Relancer une recherche</a>
+    <br>
+    {% endif %}
+
+	{% for annonce in annonces %}
+    {% if annonceResearch.title|lower in annonce.title|lower %}
+    {% set counter = counter + 1 %}
+    <br>
+		<section class="annonce">
+    {% for annonce in annonces %}
+    <annonce>
+        <div class="row">
+		    <div class="column">
+                <h2>{{annonce.title}}</h2>
+            </div>
+        </div>
+        <div class="metadata">Ecrit le {{annonce.createdAt | date('d/m/Y')}} à {{annonce.createdAt | date('H:i')}} par {{annonce.nomComplet | raw}}</div>
+        <div class="content">
+         <img src="{{annonce.image}}" width="350" length="200" alt="">  <br> </br></div>
+
+		    <h4>Description de l'annonce</h4>
+		<div style="text-align: justify;">
+            {{annonce.content | raw}} 
+        </div>
+        <br> </br>
+        <div class="column">
+        <a href="{{ path('covid_show', {'id':annonce.id}) }}" class="btn btn-primary">Voir le détail de l'annonce</a>
+        </div>
+
+    </annonce>
+
+    {% endif %}
+	{% endfor %}
+{% endblock %}
+
