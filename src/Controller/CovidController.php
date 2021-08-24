@@ -118,7 +118,7 @@ class CovidController extends AbstractController
     * @Route("/covid/{id}/comment", name="create_comment")
     */
 
-    public function comment($id ,Request $request, EntityManagerInterface $manager) {
+    public function comment($id ,Request $request, EntityManagerInterface $manager, Annonce $annonce) {
 
         $repo = $this ->getDoctrine() ->getRepository(Annonce::class);
         $annonce = $repo ->find($id);
@@ -139,6 +139,7 @@ class CovidController extends AbstractController
         }
         return $this ->render('covid/comment.html.twig',[
             'formComment' => $form->createView(),
+            'annonce'=> $annonce
       ]);
     
     }
